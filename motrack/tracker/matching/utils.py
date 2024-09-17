@@ -6,6 +6,11 @@ from typing import Tuple, List
 
 import numpy as np
 import scipy
+from scipy import optimize
+
+if scipy.optimize is None:
+    err_msg = "scipy.optimize is required for the Hungarian algorithm."
+    raise ImportError(err_msg)
 
 INF = 999_999
 
