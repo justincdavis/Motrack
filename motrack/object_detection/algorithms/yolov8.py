@@ -1,6 +1,8 @@
 """
 YOLOv8 inference support.
 """
+from __future__ import annotations
+
 from typing import List, Optional, Tuple, Union, Any
 
 import cv2
@@ -20,7 +22,6 @@ class YOLOv8Inference(ObjectDetectionInference):
     def __init__(
         self,
         model_path: str,
-        accelerator: str,
         verbose: bool = False,
         conf: float = 0.25,
         class_filter: Optional[List[LabelType]] = None,
@@ -33,8 +34,7 @@ class YOLOv8Inference(ObjectDetectionInference):
         except ImportError as e:
             raise ImportError('Please install ultralytics package with "pip3 install ultralytics" in order to use YOLOv8!') from e
 
-        self._yolo = ultralytics.YOLO(model_path)
-        self._yolo.to(accelerator)
+        self._yolo = ultralytics.YOLO(model_path, task="detect")
         self._verbose = verbose
         self._conf = conf
         self._class_filter = class_filter
